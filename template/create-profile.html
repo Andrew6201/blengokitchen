@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    ::placeholder {
+        color: white;
+        opacity: 1; /* Ensure placeholder text is fully visible */
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm p-3 mb-5 bg-dark text-white rounded">
+                <div class="card-body text-center">
+                    <h2 style="font-weight: bold; font-size: 20px;" class="bg-secondary p-2 rounded">Create Profile</h2>
+                    <form method="POST" action="{% url 'create_profile' %}" enctype="multipart/form-data" class="mt-3">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="profileimage" class="form-label">Profile Image</label>
+                            <input type="file" class="form-control bg-dark text-white" id="profileimage" name="profileimage" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control bg-dark text-white" id="firstname" name="firstname" placeholder="Enter First Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control bg-dark text-white" id="lastname" name="lastname" placeholder="Enter Last Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control bg-dark text-white" id="state" name="state" placeholder="Enter State" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phonenumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control bg-dark text-white" id="phonenumber" name="phonenumber" placeholder="Enter Phone Number" required>
+                        </div>
+                        <button style="font-weight: bold;" type="submit" class="btn btn-secondary">Create Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

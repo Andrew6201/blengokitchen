@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    .btn-custom {
+        min-width: 200px; /* Set a minimum width for each button */
+        height: 100px; /* Set a fixed height for consistency */
+        font-size: 1.5rem; /* Adjust font size as needed */
+        font-weight: bold;
+    }
+</style>
+{% include 'nav-bar.html' %}
+<div class="container mt-4">
+    <div class="row">
+        {% for month in months %}
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'contribution' month.id %}" class="btn btn-primary btn-lg btn-block text-center btn-custom">{{ month.monthname }}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

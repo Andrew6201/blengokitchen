@@ -1,0 +1,21 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% include 'nav-bar.html' %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 mb-4">
+      <div style="background-color: #d3e6fa;;" class="product-card text-center p-3">
+        <div class="product">
+          <img src="{{ products.productimage.url }}" alt="{{ products.productname }}" class="img-fluid mb-3"/>
+          <h2 style="font-weight: bold;">{{ products.productname }}</h2>
+          <p class="fw-bold">₦{{ products.productprice }}</p>
+          <p style="font-weight: bold;">{{ products.productdescription }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

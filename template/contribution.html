@@ -1,0 +1,52 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% include 'nav-bar.html' %}
+<style>
+    span {
+        color: blue;
+    }
+</style>
+
+<div style="width: 60%; margin: 0 auto; background-color: #ece6e6; padding: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 15px; height: 10%;">
+    <h1 style="color: #333; text-align: center; font-weight: bolder; font-size: 18px;"><span>{{ request.user|capfirst }}  </span>Monthly Contribution for <span>{{ month.monthname|capfirst }}</span></h1>
+
+    <div style="margin-top: 20px; text-align: center;">
+        {% if month.contribution and request.user == month.contribution.user %}
+            {% if month.contribution.contributionimage %}
+                {% if month.contribution.confirmation %}
+                <div class="alert alert-success" role="alert">
+                    Payment confirmed
+                </div>
+                {% else %}
+                    <img style="width: 50%; border-radius: 8px; margin-bottom: 10px;" src="{{ month.contribution.contributionimage.url }}" alt="Contribution Image"/>
+                    <p style="color: rgb(36, 43, 36);">Uploaded on {{ month.contribution.created_at.date }} </p>
+                    <p style="color: rgb(10, 19, 10);">By {{ month.contribution.created_at.time }} </p>
+                    <div class="alert alert-success" role="alert">
+                        Upload Successful
+                    </div>
+                    <p style="color: rgb(236, 162, 24)">Awaiting confirmation...</p>
+                {% endif %}
+            {% else %}
+                <p style="color: #555;">Upload your receipt</p>
+                <div style="margin-top: 20px;">
+                    <form method="POST" action="{% url 'contribution' month.id %}" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px;">
+                        {% csrf_token %}
+                        <input type="file" name="contributionimage" style="margin-bottom: 20px;"/>
+                        <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"/>
+                    </form>
+                </div>
+            {% endif %}
+        {% else %}
+            <p style="color: #555;">Upload your receipt</p>
+            <div style="margin-top: 20px;">
+                <form method="POST" action="{% url 'contribution' month.id %}" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px;">
+                    {% csrf_token %}
+                    <input type="file" name="contributionimage" style="margin-bottom: 20px;"/>
+                    <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"/>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

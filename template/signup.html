@@ -1,0 +1,84 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    .loging {
+        color: rgb(183, 183, 252)
+    }
+    .mt-3{
+        color: red;
+    }
+
+    .btn {
+        font-weight: bold;
+        
+        color: white;
+    }
+
+    .card-custom {
+        background-color: rgb(32, 29, 29); /* Dark background color */
+        color: white; /* White text color */
+    }
+
+    .card-custom .form-control {
+        background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent input background */
+        color: white; /* White text color for inputs */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border color */
+    }
+
+    .card-custom .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6); /* Light placeholder color */
+    }
+
+    .card-custom .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2); /* Slightly more transparent on focus */
+        border-color: rgba(255, 255, 255, 0.5); /* Lighter border color on focus */
+    }
+
+    .card-custom .alert {
+        background-color: rgba(255, 0, 0, 0.2); /* Transparent red background for alerts */
+        color: white; /* White text color for alerts */
+        border: 1px solid rgba(255, 0, 0, 0.5); /* Light red border for alerts */
+    }
+</style>
+{% include 'nav-bar.html' %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-custom p-4">
+            <h2 class="mb-4 text-center">Sign Up</h2>
+
+            {% for message in messages %}
+            <div  style="text-align: center;font-weight: lighter;font-size: 14px;" class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="username" class="text-center w-100">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email" class="text-center w-100">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password" class="text-center w-100">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password2" class="text-center w-100">Confirm Password</label>
+                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" required>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary">Sign Up</button>
+                </div>
+            </form>
+            <p class="mt-3 text-center">Already have an account? <a class="loging" href="{% url 'loging' %}">Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
