@@ -12,6 +12,10 @@ urlpatterns=[
     path('months/',views.months,name='months'),
     path('chat/',views.chat,name='chat'),
     path('delete/<str:pk>/',views.delete,name='delete'),
+    path('delete_chat/<str:pk>/',views.delete_chat,name='delete_chat'),
     path('perproduct/<str:pk>/',views.perproduct,name='perproduct'),
+    path('pictures/',views.pictures,name='pictures'),
+    path('confirmdelete/',views.confirmdelete,name='confirmdelete'),
+    path('myusers/',views.myusers,name='myusers'),
     
 ]

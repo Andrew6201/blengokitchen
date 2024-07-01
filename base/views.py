@@ -3,18 +3,37 @@ from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from . models import Profile, Contribution,Month,Chat,Product
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 # Create your views here.
 
-
 def home(request):
+    # Search functionality
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    products = Product.objects.filter(Q(productname__icontains=q) | Q(productdescription__icontains=q))
+
+    # Collect and save products to the backend
+    if request.method == "POST":
+        productimage = request.FILES.get('productimage')
+        productname = request.POST['productname']
+        productprice = request.POST['productprice']
+        productdescription = request.POST['productdescription']
+
+        new_product = Product(productimage=productimage, productname=productname, productprice=productprice, productdescription=productdescription)
+        new_product.save()
+
+        # After saving the new product, include it in the queryset
+        products = Product.objects.all()
+
     profile = Profile.objects.all()
-    products = Product.objects.all()
     chats = Chat.objects.all().order_by('-id')
     
     user_profile = None
     if request.user.is_authenticated:
         user_profile = Profile.objects.get(user=request.user)
-    return render(request,'home.html',{'profile':profile,'user_profile':user_profile,'chats':chats,'products':products})
+
+    return render(request, 'home.html', {'profile': profile, 'user_profile': user_profile, 'chats': chats, 'products': products})
+
+
 def perproduct(request,pk):
     products=Product.objects.get(pk=pk)
     return render(request,'perproduct.html',{'products':products})
@@ -125,9 +144,15 @@ def contribution(request,pk):
 
 @login_required(login_url='loging')
 def months(request):
+    if request.method == 'POST':
+        monthname = request.POST['monthname']
+        monthname=Month(monthname=monthname)
+        monthname.save()
     months = Month.objects.all()
+    month_length=months.count()
     context = {
         'months':months,
+        'month_length':month_length,
     }
     return render(request,'months.html',context)
 
@@ -142,7 +167,33 @@ def chat(request):
         return redirect('chat')
     return render(request,'chat.html',{'chats':chats})
 
-def delete(request,pk):
+def delete_chat(request,pk):
     chats = Chat.objects.get(pk=pk)
     chats.delete()
-    return redirect('home')
+    return redirect('chat')
+
+def delete(request,pk):
+    contributions = Contribution.objects.get(pk=pk)
+    if request.method == "POST":
+
+        contributions.delete()
+        return redirect('pictures')
+    return render(request, 'delete.html')
+
+def confirmdelete(request):
+    return render(request,'confirmdelete')
+
+def pictures(request):
+    contributions = Contribution.objects.all()
+    
+    
+    context = {
+        'contributions':contributions,
+        
+        
+    }
+    return render(request,'pictures.html',context)
+
+def myusers(request):
+    users = User.objects.all()
+    return render(request,'myusers.html',{"users":users})

@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% include 'nav-bar.html' %}
+<style>
+    .card-title {
+        color: #2688f1;
+        font-weight: bold;
+    }
+
+    .alert-confirmation {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        padding: .75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+    }
+
+    .card-img-top {
+        height: 200px; /* Fixed height for images */
+        object-fit: cover; /* Ensure images cover the specified height without distortion */
+    }
+</style>
+<div class="container mt-5">
+    <div class="row">
+        {% for contribution in contributions %}
+        {% if contribution.contributionimage %}
+        
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <a class="btn btn-primary" href="{% url 'delete' contribution.id%}">Delete</a>
+                    <img src="{{ contribution.contributionimage.url }}" class="card-img-top" alt="{{ contribution.user }}">
+                    <div class="card-body">
+                        <h5 class="card-title">@{{ contribution.user }}</h5>
+                        <p class="card-text">Date Uploaded: {{ contribution.created_at }}</p>
+                        
+                        {% if contribution.confirmation %}
+                            <p class="alert-confirmation">{{contribution.confirmation }}</p>
+                        {% else %}
+
+                            <h1>Awaiting Confirmation...</h1>
+                            
+                        {% endif %}
+                       
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                </div><div class="row">
+
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

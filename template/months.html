@@ -8,9 +8,32 @@
         font-size: 1.5rem; /* Adjust font size as needed */
         font-weight: bold;
     }
+    .form-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .form-control {
+        margin-bottom: 10px;
+    }
 </style>
 {% include 'nav-bar.html' %}
 <div class="container mt-4">
+    <div class="row">
+        {% if request.user.is_authenticated and request.user.username == "ngozi" %}
+        {% if month_length < 12 %}
+        <div class="col-md-6 offset-md-3 form-container">
+            <form method="POST" action="" class="p-4 border rounded bg-light">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="monthname" class="form-label">Month Name</label>
+                    <input type="text" name="monthname" class="form-control" id="monthname" placeholder="Enter month name"/>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send</button>
+            </form>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
     <div class="row">
         {% for month in months %}
         <div class="col-md-4 mb-3">

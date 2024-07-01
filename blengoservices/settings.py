@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xftwzyz*q)cz!^jgn%2dmjn0s$r_*gb&khld!zt9_e62p9$q6b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,8 +77,13 @@ WSGI_APPLICATION = 'blengoservices.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE':'django.db.backends.sqlite3',
+        #'NAME':BASE_DIR/'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blengoservices',
+        'USER':'postgres',
+        'PASSWORD':'mnbv0987@A',
+        'HOST':'localhost',
     }
 }
 

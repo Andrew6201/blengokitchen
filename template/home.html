@@ -83,12 +83,34 @@
       color: black;
       font-weight: bold;
     }
+    .user-name{
+      color: #2688f1;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px;
+      background-color: white;
+      border-radius: 10px;
+      margin-left: 5px;
+      font-size: 17px;
+      
+    }
+    .welcome{
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .view-receipt{
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   {% block content %}
   {% include 'nav-bar.html' %}
-
+  {% if user.is_authenticated %}
+<h4 class="welcome">Welcome<a class="user-name"> @{{user.username}}</a></h4>
+  {% endif %}
   <div class="container mt-4">
     <div class="row">
       <!-- Left Column -->
@@ -128,7 +150,34 @@
       <!-- Right Column -->
       <div class="col-md-6">
         <div class="card">
-          <h1 style="text-align: center;font-size: 20px;font-weight: bold; color: #2688f1;;">Blengo Products</h1>
+          {% if request.user.username == 'ngozi' %}
+          <form method="POST" action="" enctype="multipart/form-data" class="p-4">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="productimage" class="form-label">Product Image</label>
+              <input type="file" name="productimage" class="form-control" id="productimage" required/>
+            </div>
+            <div class="mb-3">
+              <label for="productname" class="form-label">Product Name</label>
+              <input type="text" name="productname" class="form-control" id="productname" placeholder="Product name"/>
+            </div>
+            <div class="mb-3">
+              <label for="productprice" class="form-label">Product Price</label>
+              <input type="text" name="productprice" class="form-control" id="productprice" placeholder="Product Price"/>
+            </div>
+            <div class="mb-3">
+              <label for="productdescription" class="form-label">Product Description</label>
+              <textarea name="productdescription" class="form-control" id="productdescription" rows="3" placeholder="Product description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+          </form>
+
+          <a class="view-receipt" href="{% url 'pictures' %}">View Receipt uploads...</a>
+          <a class="view-receipt" href="{% url 'myusers' %}">Users...</a>
+          
+          {% endif %}
+
+          <h1 style="text-align: center;font-size: 20px;font-weight: bold; color: #2688f1;">Blengo Products</h1>
           <div class="card-body">
             <div class="row">
               {% for product in products %}
@@ -136,7 +185,9 @@
                 <a style="text-decoration: none;" href="{% url 'perproduct' product.id %}">
                   <div class="product-card">
                     <div class="product">
+                      {% if product.productimage %}
                       <img src="{{product.productimage.url}}" alt="{{product.productname}}"/>
+                      {% endif %}
                       <h2>{{product.productname}}</h2>
                       <p>₦{{product.productprice}}</p>
                     </div>
@@ -154,6 +205,9 @@
       </div>
     </div>
   </div>
+
+ 
+  
   
   <!-- Content for non-authenticated users if needed -->
   

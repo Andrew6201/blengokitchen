@@ -15,19 +15,21 @@ class Profile(models.Model):
 
 class Contribution(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    contributionimage = models.ImageField(upload_to='contribution_images',null=True)
+    contributionimage = models.ImageField(upload_to='contribution_images',null=True,blank=True)
     created_at = models.DateTimeField(default=datetime.now)
-    confirmation=models.CharField(max_length=300,null=True)
+    confirmation=models.CharField(max_length=300,null=True,blank=True)
 
     def __str___(self):
         return self.user.username
 
 class Month(models.Model):
-    contribution = models.ForeignKey(Contribution, on_delete=models.CASCADE,null=True,blank=True)
-    monthname = models.CharField(max_length=300)
+    contribution = models.ForeignKey(Contribution, on_delete=models.SET_NULL,null=True,blank=True)
+    monthname = models.CharField(max_length=300,null=False)
 
 def __str__(self):
     return self.user.username
+
+
 
 class Chat(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)

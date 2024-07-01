@@ -54,9 +54,9 @@
             </ul>
             
             {% if user.is_authenticated %}
-            <form class="d-flex mx-auto" method="POST" action="#">
-                {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Search for username..." aria-label="Search" name="username">
+            <form class="d-flex mx-auto" method="GET" action="{% url 'home' %}">
+                
+                <input class="form-control me-2" type="search" placeholder="Search for products..." aria-label="Search" name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
