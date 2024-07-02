@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    {% include 'nav-bar.html' %}
+    
+    <form method="POST" action="{% url 'imagess' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_pimage">Profile Image</label>
+            <input type="file" name="pimage" id="id_pimage" class="form-control-file">
+        </div>
+
+        <div class="form-group">
+            <label for="id_bodyimage">Body Image</label>
+            <input type="file" name="bodyimage" id="id_bodyimage" class="form-control-file">
+        </div>
+
+        <div class="form-group">
+            <label for="id_logoimage">Logo Image</label>
+            <input type="file" name="logoimage" id="id_logoimage" class="form-control-file">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload Images</button>
+    </form>
+{% endblock %}

@@ -17,5 +17,6 @@ urlpatterns=[
     path('pictures/',views.pictures,name='pictures'),
     path('confirmdelete/',views.confirmdelete,name='confirmdelete'),
     path('myusers/',views.myusers,name='myusers'),
+    path('imagess/',views.imagess,name='imagess'),
     
 ]

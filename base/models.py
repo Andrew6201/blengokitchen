@@ -48,3 +48,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.productname
+
+class Theimages(models.Model):
+    bodyimage = models.ImageField(upload_to='body_image')
+    logoimage = models.ImageField(upload_to='logo_image')
+    pimage = models.ImageField(default='media/login_295128.png')
+    

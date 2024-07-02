@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'blengoservices.wsgi.application'
         #'USER':'postgres',
         #'PASSWORD':'mnbv0987@A',
         #'HOST':'localhost',
-#    }
+    #}
 #}
 DATABASES = {
     "default":dj_database_url.parse(os.environ.get('DATABASE_URL'))

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from . models import Profile, Contribution,Month,Chat,Product
+from . models import Profile, Contribution,Month,Chat,Product,Theimages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 # Create your views here.
@@ -23,15 +23,22 @@ def home(request):
 
         # After saving the new product, include it in the queryset
         products = Product.objects.all()
-
+    
     profile = Profile.objects.all()
     chats = Chat.objects.all().order_by('-id')
+    
+   
     
     user_profile = None
     if request.user.is_authenticated:
         user_profile = Profile.objects.get(user=request.user)
 
-    return render(request, 'home.html', {'profile': profile, 'user_profile': user_profile, 'chats': chats, 'products': products})
+    try:
+        images = Theimages.objects.latest('id')
+    except Theimages.DoesNotExist:
+        images = None
+
+    return render(request, 'home.html', {'profile': profile, 'user_profile': user_profile, 'chats': chats, 'products': products,'images':images})
 
 
 def perproduct(request,pk):
@@ -197,3 +204,12 @@ def pictures(request):
 def myusers(request):
     users = User.objects.all()
     return render(request,'myusers.html',{"users":users})
+
+def imagess(request):
+    if request.method == "POST":
+        pimage=request.FILES.get('pimage')
+        bodyimage=request.FILES.get('bodyimage')
+        logoimage=request.FILES.get('logoimage')
+        newimage = Theimages(pimage=pimage,bodyimage=bodyimage,logoimage=logoimage)
+        newimage.save()
+    return render(request,'imagess.html')
