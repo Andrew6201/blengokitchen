@@ -106,6 +106,7 @@
   </style>
 </head>
 <body>
+  
   {% block content %}
   {% include 'nav-bar.html' %}
   {% if user.is_authenticated %}
@@ -174,7 +175,7 @@
 
           <a class="view-receipt" href="{% url 'pictures' %}">View Receipt uploads...</a>
           <a class="view-receipt" href="{% url 'myusers' %}">Users...</a>
-          <a class="view-receipt" href="{% url 'imagess' %}">Users...</a>
+          <a class="view-receipt" href="{% url 'imagess' %}">Upload images...</a>
           
           {% endif %}
 
@@ -182,8 +183,12 @@
           <div class="card-body">
             <div class="row">
               {% for product in products %}
+             
               <div class="col-md-6 mb-4">
+                {% if request.user.username == 'ngozi' %}
+                <a href="{% url 'deleteproduct' product.id %}">Delete product</a>
                 <a style="text-decoration: none;" href="{% url 'perproduct' product.id %}">
+                  {% endif %}
                   <div class="product-card">
                     <div class="product">
                       {% if product.productimage %}

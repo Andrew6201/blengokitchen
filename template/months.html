@@ -15,9 +15,16 @@
     .form-control {
         margin-bottom: 10px;
     }
+    .back{
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
 </style>
-{% include 'nav-bar.html' %}
+
 <div class="container mt-4">
+    <a class="back" href="{% url 'home' %}" class="btn btn-primary back-button">Back</a> <!-- Back button -->
+<div class="container">
+<div class="container">
     <div class="row">
         {% if request.user.is_authenticated and request.user.username == "ngozi" %}
         {% if month_length < 12 %}

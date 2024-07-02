@@ -18,5 +18,7 @@ urlpatterns=[
     path('confirmdelete/',views.confirmdelete,name='confirmdelete'),
     path('myusers/',views.myusers,name='myusers'),
     path('imagess/',views.imagess,name='imagess'),
+
+    path('deleteproduct/<str:pk>/',views.deleteproduct,name='deleteproduct'),
     
 ]

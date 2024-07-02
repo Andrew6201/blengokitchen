@@ -187,6 +187,14 @@ def delete(request,pk):
         return redirect('pictures')
     return render(request, 'delete.html')
 
+def deleteproduct(request,pk):
+    products = Product.objects.get(pk=pk)
+    if request.method == "POST":
+
+        products.delete()
+        return redirect('home')
+    return render(request, 'delete.html')
+
 def confirmdelete(request):
     return render(request,'confirmdelete')
 

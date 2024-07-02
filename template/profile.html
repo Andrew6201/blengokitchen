@@ -1,8 +1,11 @@
 {% extends 'home.html' %}
 {% block content %}
-{% include 'nav-bar.html' %}
+
 <div class="container mt-5">
+    <a href="{% url 'home' %}" class="btn btn-primary back-button">Back</a> <!-- Back button -->
+<div class="container">
     <div class="row">
+        
         <div class="col-md-6 offset-md-3">
         
             {% for profile in profiles %}
