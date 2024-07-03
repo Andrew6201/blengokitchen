@@ -31,7 +31,7 @@ def home(request):
     
     user_profile = None
     if request.user.is_authenticated:
-        user_profile = Profile.objects.get(user=request.user)
+        user_profile,created = Profile.objects.get_or_create(user=request.user)
 
     try:
         images = Theimages.objects.latest('id')
@@ -77,6 +77,7 @@ def signup(request):
 def loging(request):
     if request.user.is_authenticated:
         return redirect('home')
+    
     if request.method == "POST":
         username=request.POST['username'].lower()
         password=request.POST['password']
@@ -99,7 +100,7 @@ def logout(request):
 
 def profile(request):
     #To update my profile field
-    profile = Profile.objects.get(user=request.user)
+    profile,created = Profile.objects.get_or_create(user=request.user)
     
     if request.method=="POST":
         profile.profileimage=request.FILES.get('profileimage',profile.profileimage)

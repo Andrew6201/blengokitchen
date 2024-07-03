@@ -18,23 +18,23 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="profileimage" class="form-label">Profile Image</label>
-                                <input type="file" class="form-control bg-dark text-white" id="profileimage" name="profileimage"/>
+                                <input type="file" class="form-control bg-dark text-white" id="profileimage" name="profileimage" required/>
                             </div>
                             <div class="mb-3">
                                 <label for="firstname" class="form-label">First Name</label>
-                                <input type="text" class="form-control bg-dark text-white" id="firstname" value="{{ profile.firstname }}" name="firstname" placeholder="First Name"/>
+                                <input type="text" class="form-control bg-dark text-white" id="firstname" value="{{ profile.firstname }}" name="firstname" placeholder="First Name" required/>
                             </div>
                             <div class="mb-3">
                                 <label for="lastname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control bg-dark text-white" id="lastname" value="{{ profile.lastname }}" name="lastname" placeholder="Last Name"/>
+                                <input type="text" class="form-control bg-dark text-white" id="lastname" value="{{ profile.lastname }}" name="lastname" placeholder="Last Name" required/>
                             </div>
                             <div class="mb-3">
                                 <label for="state" class="form-label">State</label>
-                                <input type="text" class="form-control bg-dark text-white" id="state" value="{{ profile.state }}" name="state" placeholder="State"/>
+                                <input type="text" class="form-control bg-dark text-white" id="state" value="{{ profile.state }}" name="state" placeholder="State" required/>
                             </div>
                             <div class="mb-3">
                                 <label for="phonenumber" class="form-label">Phone Number</label>
-                                <input type="text" class="form-control bg-dark text-white" id="phonenumber" value="{{ profile.phonenumber }}" name="phonenumber" placeholder="Phone Number"/>
+                                <input type="text" class="form-control bg-dark text-white" id="phonenumber" value="{{ profile.phonenumber }}" name="phonenumber" placeholder="Phone Number" required/>
                             </div>
                             <button style="font-weight: bold;" type="submit" class="btn btn-secondary">Update Profile</button>
                         </form>

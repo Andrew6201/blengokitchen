@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
+#import dj_database_url
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,20 +76,20 @@ WSGI_APPLICATION = 'blengoservices.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-#DATABASES = {
-    #'default': {
-        #'ENGINE':'django.db.backends.sqlite3',
-        #'NAME':BASE_DIR/'db.sqlite3',
+DATABASES = {
+    'default': {
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME':BASE_DIR/'db.sqlite3',
         #'ENGINE': 'django.db.backends.postgresql',
         #'NAME': 'blengoservices',
         #'USER':'postgres',
         #'PASSWORD':'mnbv0987@A',
         #'HOST':'localhost',
-    #}
-#}
-DATABASES = {
-    "default":dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 }
+#DATABASES = {
+    #"default":dj_database_url.parse(os.environ.get('DATABASE_URL'))
+#}
 
 
 # Password validation
