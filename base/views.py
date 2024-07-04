@@ -201,15 +201,19 @@ def deleteproduct(request,pk):
 
 def confirmdelete(request):
     return render(request,'confirmdelete')
+
+@login_required(login_url='loging')
 def pictures(request):
     contributions = Contribution.objects.all()
 
     if request.method == "POST":
         contribution_id = request.POST['contribution_id']
         confirm = request.POST['confirm']
-        contribution = Contribution.objects.get(id=contribution_id)
-        
-        ConfirmPayment.objects.update_or_create(contribution=contribution, defaults={'confirm': confirm})
+        try:
+            contribution = Contribution.objects.get(id=contribution_id)
+            ConfirmPayment.objects.update_or_create(contribution=contribution, defaults={'confirm': confirm})
+        except Contribution.DoesNotExist:
+            messages.error(request, "Contribution ID does not exist")
         
         return redirect('pictures')
     
@@ -217,6 +221,7 @@ def pictures(request):
         'contributions': contributions
     }
     return render(request, 'pictures.html', context)
+
 
 
 def myusers(request):

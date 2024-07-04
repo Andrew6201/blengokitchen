@@ -36,7 +36,7 @@
                     <form method="POST" action="{% url 'contribution' month.id %}" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px;">
                         {% csrf_token %}
                         <input type="file" name="contributionimage" style="margin-bottom: 20px;"/>
-                        <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"/>
+                        <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;"/>
                     </form>
                 </div>
             {% endif %}
