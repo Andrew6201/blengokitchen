@@ -14,7 +14,7 @@ class Profile(models.Model):
         return self.user.username
 
 class Contribution(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     contributionimage = models.ImageField(upload_to='contribution_images',null=True,blank=True)
     created_at = models.DateTimeField(default=datetime.now)
     confirmation=models.CharField(max_length=300,null=True,blank=True)
@@ -50,7 +50,11 @@ class Product(models.Model):
         return self.productname
 
 class Theimages(models.Model):
-    bodyimage = models.ImageField(upload_to='body_image')
-    logoimage = models.ImageField(upload_to='logo_image')
-    pimage = models.ImageField(default='media/login_295128.png')
+    bodyimage = models.ImageField(upload_to='body_image',null=True,blank=True)
+    logoimage = models.ImageField(upload_to='logo_image',null=True,blank=True)
+    pimage = models.ImageField(default='media/login_295128.png',null=True,blank=True)
     
+
+class ConfirmPayment(models.Model):
+    contribution = models.ForeignKey(Contribution, on_delete=models.SET_NULL,null=True,blank=True)
+    confirm = models.CharField(max_length=100, null=True)

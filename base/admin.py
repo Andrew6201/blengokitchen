@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Profile,Contribution,Month,Chat,Product,Theimages
+from . models import Profile,Contribution,Month,Chat,Product,Theimages,ConfirmPayment
 # Register your models here.
 
 admin.site.register(Profile)
@@ -8,3 +8,4 @@ admin.site.register(Month)
 admin.site.register(Chat)
 admin.site.register(Product)
 admin.site.register(Theimages)
+admin.site.register(ConfirmPayment)

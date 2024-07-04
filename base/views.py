@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
-from . models import Profile, Contribution,Month,Chat,Product,Theimages
+from . models import Profile, Contribution,Month,Chat,Product,Theimages,ConfirmPayment
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 # Create your views here.
@@ -132,6 +132,8 @@ def create_profile(request):
 @login_required(login_url='loging')
 def contribution(request,pk):
     month = Month.objects.get(pk=pk)
+    confirmed = ConfirmPayment.objects.filter(contribution=month.contribution).first()
+    
     #contributionimage = Contribution.objects.get(user=request.user)
     if request.method == "POST":
         contributionimage = request.FILES.get('contributionimage')
@@ -146,6 +148,7 @@ def contribution(request,pk):
     context = {
         
         'month':month,
+        'confirmed':confirmed,
         
     }
     return render(request,'contribution.html',context)
@@ -198,17 +201,23 @@ def deleteproduct(request,pk):
 
 def confirmdelete(request):
     return render(request,'confirmdelete')
-
 def pictures(request):
     contributions = Contribution.objects.all()
-    
+
+    if request.method == "POST":
+        contribution_id = request.POST['contribution_id']
+        confirm = request.POST['confirm']
+        contribution = Contribution.objects.get(id=contribution_id)
+        
+        ConfirmPayment.objects.update_or_create(contribution=contribution, defaults={'confirm': confirm})
+        
+        return redirect('pictures')
     
     context = {
-        'contributions':contributions,
-        
-        
+        'contributions': contributions
     }
-    return render(request,'pictures.html',context)
+    return render(request, 'pictures.html', context)
+
 
 def myusers(request):
     users = User.objects.all()
