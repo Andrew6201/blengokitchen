@@ -104,6 +104,33 @@
       font-weight: bold;
       font-size: 16px;
     }
+    /* Orientation Alert */
+.orientation-alert {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.orientation-alert i {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.orientation-alert p {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
   </style>
 </head>
 <body>
@@ -114,7 +141,10 @@
 
   <div class="container mt-4">
     {% if user.is_authenticated %}
-        <h4 style="margin-bottom: 5px; font-weight: bold;" class="m-1">WELCOME <span class="user-name">@{{user.username|upper}}</span></h4>
+        <h4 style="margin-bottom: 5px; font-weight: bold;" class="m-1">WELCOME <span class="user-name">@{{user.username|upper}}</span></h4> <div id="orientation-alert" class="orientation-alert">
+          <i class="fas fa-mobile-alt"></i>
+          <p>Please rotate your phone horizontally for the best experience.</p>
+      </div>
       {% endif %}
 
     <div style="margin-top: 10px;" class="card">
@@ -234,6 +264,21 @@
     </div>
   </div>
 
+  <script>
+    function checkOrientation() {
+        const orientationAlert = document.getElementById('orientation-alert');
+        // Check if the device is in portrait mode
+        if (window.innerHeight > window.innerWidth) {
+            orientationAlert.style.display = 'block'; // Show the alert
+        } else {
+            orientationAlert.style.display = 'none'; // Hide the alert
+        }
+    }
+
+    // Check orientation on page load and when the window is resized
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+</script>
  {% include 'footer.html' %}
   
   
