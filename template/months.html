@@ -1,7 +1,13 @@
 {% extends 'home.html' %}
 
 {% block content %}
+
 <style>
+    body{
+        
+        background-color: #dd9860 ;
+        
+    }
     .btn-custom {
         min-width: 200px; /* Set a minimum width for each button */
         height: 100px; /* Set a fixed height for consistency */
@@ -20,10 +26,9 @@
         margin-bottom: 10px;
     }
 </style>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a>
 
-<div class="container mt-4">
-    <a class="back" href="{% url 'home' %}" class="btn btn-primary back-button">Back</a> <!-- Back button -->
-<div class="container">
 <div class="container">
     <div class="row">
         {% if request.user.is_authenticated and request.user.username == "ngozi" %}
@@ -43,8 +48,8 @@
     </div>
     <div class="row">
         {% for month in months %}
-        <div class="col-md-4 mb-3">
-            <a href="{% url 'contribution' month.id %}" class="btn btn-primary btn-lg btn-block text-center btn-custom">{{ month.monthname }}</a>
+        <div style="margin-top: 10px;" class="col-md-4 mb-3">
+            <a style="background-color: #005a87;; color: white;" href="{% url 'contribution' month.id %}" class="btn btn-lg btn-block text-center btn-custom">{{ month.monthname }}</a>
         </div>
         {% endfor %}
     </div>

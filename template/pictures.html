@@ -35,6 +35,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@{{ contribution.user }}</h5>
                         <p class="card-text">Date Uploaded: {{ contribution.created_at }}</p>
+                        <strong>{{contribution.months}}</strong>
                         
                         {% with confirmation=contribution.confirmpayment_set.first %}
                             {% if confirmation %}
@@ -42,12 +43,13 @@
                             {% else %}
                                 <h1>Awaiting Confirmation...</h1>
                                 {% if request.user.username == 'ngozi' %}
+                                    
                                     <form method="POST" action="{% url 'pictures' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="contribution_id" value="{{ contribution.id }}">
-                                        <label>Confirm payment</label>
-                                        <input type="text" name="confirm" required/>
-                                        <input type="submit" value="confirm"/>
+                                        <button type="submit" name="confirm" value="PAYMENT CONFIRMED SUCCESSFULLY" class="btn btn-success">
+                                            CONFIRM PAYMENT
+                                        </button>
                                     </form>
                                 {% endif %}
                             {% endif %}

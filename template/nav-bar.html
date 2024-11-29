@@ -1,39 +1,40 @@
 {% load static %}
 <style>
     .navbar-custom {
-        
-        /*background-color: #494545;*/
-        background-color: rgb(48, 45, 45); /* Tomato Red */
+       /* background-color: rgb(48, 45, 45); /* Dark background */
+        background-color: #005a87;
     }
 
     .navbar-custom .navbar-brand,
-    .navbar-custom .nav-link,
-    .navbar-custom .navbar-toggler-icon {
-        color: #FFFFFF; /* White */
-    }
-    .navbar-custom .nav-link:hover {
-        
-        color: rgb(204, 200, 200) /* White */
+    .navbar-custom .nav-link {
+        color: #FFFFFF; /* White text */
     }
 
-   .nav-item{
-    font-size: 16px;
-    
-   }
+    .navbar-custom .nav-link:hover {
+        color: rgb(204, 200, 200); /* Lighter hover effect */
+    }
+
+    .nav-item {
+        font-size: 16px;
+    }
 
     .navbar-custom .btn-outline-success {
-        color: #FFFFFF; /* White */
-        border-color: #FFFFFF; /* White */
+        color: #FFFFFF; /* White button text */
+        border-color: #FFFFFF; /* White border */
     }
 
     .navbar-custom .btn-outline-success:hover {
-        background-color: #FFC107; /* Amber */
-        border-color: #FFC107; /* Amber */
+        background-color: #FFC107; /* Amber hover */
+        border-color: #FFC107;
     }
-    .navbar-brand{
+
+    .navbar-brand {
         font-weight: bolder;
-        font-family:fantasy,Verdana, Geneva, Tahoma, sans-serif;
+        font-family: fantasy, Verdana, Geneva, Tahoma, sans-serif;
         font-size: 23px;
+    }
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
 </style>
 
@@ -47,67 +48,69 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" aria-labelledby="profileDropdown">
-                {% if user.is_authenticated %}
-                    <!-- Additional authenticated user links can be placed here -->
-                {% endif %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Additional nav links -->
             </ul>
-            
-            {% if user.is_authenticated %}
+
+            <!-- Search Box -->
             <form class="d-flex mx-auto" method="GET" action="{% url 'home' %}">
-                
                 <input class="form-control me-2" type="search" placeholder="Search for products..." aria-label="Search" name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
+            <!-- Navbar Right Items -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <!-- Profile dropdown -->
-            
-                <li class="nav-item dropdown">
-                    
-                    <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        
-                        <img src="{{user_profile.profileimage.url}}" class="rounded-circle" width="50" height="50" alt="{{ user.username }}'s profile picture">
-                        
-                    </a>
-                    
-                
-                
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        
-                        
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                    
-                    
+                {% if user.is_authenticated %}
+                    <!-- Logout in Navbar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}"><i class="fa-solid fa-address-card"></i> About</a>
+                    </li>
 
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <!-- Additional dropdown or nav items can be added here -->
-                </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'contact' %}"><i class="fa-solid fa-phone"></i> Contacts</a>
+                    </li>
+
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{user_profile.profileimage.url}}" class="rounded-circle" width="50" height="50" alt="{{ user.username }}'s profile picture">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-sliders" aria-hidden="true"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <!-- Login and Sign-Up in Navbar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'loging' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}"><i class="fa-solid fa-address-card"></i> About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}"><i class="fa-solid fa-phone"></i> Contacts</a>
+                    </li>
+
+                    <!-- Guest Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if images %}
+                                <img src="{{images.pimage.url}}" class="rounded-circle" width="50" height="50" alt="Guest profile picture">
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{% url 'loging' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign-Up</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
-            {% else %}
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <!-- Profile dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if images %}
-                        <img src="{{images.pimage.url}}" class="rounded-circle" width="50" height="50" alt="{{ user.username }}'s profile picture">
-                    </a>
-                    {% endif %}
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="{% url 'loging' %}">Login</a></li>
-                        <li><a class="dropdown-item" href="{% url 'signup' %}">Sign-Up</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <!-- Additional dropdown or nav items can be added here -->
-                </li>
-            </ul>
-            {% endif %}
-            
         </div>
     </div>
 </nav>

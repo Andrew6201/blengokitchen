@@ -1,0 +1,214 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #dd9860;
+        font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .about-intro {
+        text-align: center;
+        color: #fff;
+        font-size: 1.2rem;
+        margin: 20px;
+    }
+
+    .services {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin: 30px 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        margin: 10px;
+    }
+
+    .card-body {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #e17055;
+        margin-bottom: 15px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .cta-link {
+        display: block;
+        margin-top: 15px;
+        color: #e17055;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .cta-link:hover {
+        color: #d35400;
+    }
+
+    form {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        text-align: center;
+    }
+
+    form label {
+        font-size: 1.2rem;
+        color: #555;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    form input[type="file"] {
+        margin-bottom: 15px;
+    }
+
+    form input[type="submit"] {
+        background-color: #e17055;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #d35400;
+    }
+
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .image-card {
+        position: relative;
+        max-width: calc(50% - 15px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-card img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-card a {
+        text-align: center;
+        margin-top: 10px;
+        color: #e17055;
+        text-decoration: none;
+    }
+
+    .image-card a:hover {
+        color: #d35400;
+    }
+</style>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a> 
+<h1>About Us</h1>
+
+<p class="about-intro">
+    At <strong>Our Kitchen</strong>, we specialize in creating unforgettable culinary experiences for every occasion. From intimate gatherings to grand celebrations, we bring flavors that will delight your guests and leave lasting impressions.
+</p>
+
+<div class="services">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Birthday Parties</h5>
+            <p class="card-text">
+                Celebrate your special day with a customized menu that matches your style and preferences. Our chefs ensure every bite is a treat to remember.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Weddings</h5>
+            <p class="card-text">
+                Make your big day even more magical with exquisite meals tailored for your guests. We ensure perfection, from appetizers to desserts.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Child Dedications</h5>
+            <p class="card-text">
+                Celebrate new beginnings with delicious meals that bring families together. We cater to both traditional and modern tastes.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Meetings</h5>
+            <p class="card-text">
+                Impress your colleagues or clients with a professional dining experience that reflects your commitment to excellence.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Traditional Marriages</h5>
+            <p class="card-text">
+                Embrace cultural flavors with authentic dishes prepared with the finest ingredients. We bring tradition to life in every meal.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">And More!</h5>
+            <p class="card-text">
+                Whatever the occasion, we’re here to provide the perfect meals that suit your needs. Let’s create something special together.
+            </p>
+            <a style="color: #005a87;" href="{% url 'contact' %}" class="cta-link">Contact us today <i class="fa-solid fa-address-book"></i></a>
+        </div>
+    </div>
+</div>
+{% if request.user.username == 'ngozi' %}
+<form method="POST" action="{% url 'about' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="aboutimage">Upload Image</label>
+    <input id="aboutimage" type="file" name="aboutimage" />
+    <input type="submit" value="Upload" />
+</form>
+{% endif %}
+
+<div class="image-gallery">
+    {% for x in images %}
+    <div class="image-card">
+        {% if request.user.username == 'ngozi' %}
+        <a href="{% url 'deleteabout' x.id %}">DELETE IMAGE</a>
+        {% endif %}
+        <img src="{{ x.aboutimage.url }}" alt="Uploaded Image" />
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

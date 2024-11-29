@@ -1,8 +1,15 @@
 {% extends 'home.html' %}
 
 {% block content %}
-{% include 'nav-bar.html' %}
+<style>
+  body{
+    background-color: #dd9860 ;
+    
+  }
+</style>
 
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+  Home</a> 
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6 mb-4">

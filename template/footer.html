@@ -1,0 +1,47 @@
+<footer style="background-color: #005a87; color: #fff; padding: 20px 0; text-align: center; font-family: 'Arial', sans-serif; font-size: 0.9rem;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+        <!-- Company Info -->
+        <div style="flex: 1; margin: 10px;">
+            <h3 style="margin-bottom: 10px; font-size: 1.2rem; font-weight: normal;">BlengoServices</h3>
+            <p style="margin: 0; line-height: 1.5; font-weight: lighter;">
+                Empowering your business with innovative solutions. <br />
+                © {{ year }} BlengoServices. All rights reserved.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div style="flex: 1; margin: 10px; text-align: center;">
+            <h4 style="margin-bottom: 10px; font-size: 1rem; font-weight: normal;">Quick Links</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin: 5px 0;">
+                    <a href="{% url 'home' %}" style="color: #fff; text-decoration: none; font-weight: bold; transition: color 0.3s; font-size: 0.9rem;">Home</a>
+                </li>
+                <li style="margin: 5px 0;">
+                    <a href="{% url 'about' %}" style="color: #fff; text-decoration: none; font-weight: bold; transition: color 0.9s; font-size: 0.9rem;">About Us</a>
+                </li>
+                <li style="margin: 5px 0;">
+                    <a href="{% url 'contact' %}" style="color: #fff; text-decoration: none; font-weight: bold; transition: color 0.3s; font-size: 0.9rem;">Contact Us</a>
+                </li>
+                
+            </ul>
+        </div>
+
+        <!-- Social Media Links -->
+        <div style="flex: 1; margin: 10px; text-align: right;">
+            <h4 style="margin-bottom: 10px; font-size: 1rem; font-weight: normal;">Follow Us</h4>
+            <div>
+                <a href="https://facebook.com" target="_blank" style="color: #fff; margin-right: 10px; font-size: 1.2rem; transition: color 0.3s;">
+                
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://whatsapp.com" target="_blank" style="color: #fff; margin-right: 10px; font-size: 1.2rem; transition: color 0.3s;">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" style="color: #fff; margin-right: 10px; font-size: 1.2rem; transition: color 0.3s;">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+               
+            </div>
+        </div>
+    </div>
+</footer>

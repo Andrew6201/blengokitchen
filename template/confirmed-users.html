@@ -1,0 +1,33 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    body {
+        color: black;
+    }
+</style>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">FULL NAME</th>
+      <th scope="col">MONTH PAID</th>
+      <th scope="col">CONFIRMED</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for x in all %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ x.contribution.user.id }}</td>
+      <td><p>{{ x.contribution.get_user_fullname }}</p></td>
+      <td>{{ x.contribution.months }}</td>
+      <td><i class="fa-solid fa-check"></i>YES</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

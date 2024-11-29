@@ -1,0 +1,100 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #dd9860;
+        
+    }
+</style>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a> 
+<div style="background-color: #005a87;" class="container mt-5">
+    
+    <div class="p-4 text-white rounded" style="border-radius: 10px; color: #005a87;background-color: #005a87;">
+        <h2 class="text-center mb-4">Update Profile</h2>
+        <form method="POST" action="{% url 'update-profile' profile.id %}" enctype="multipart/form-data" class="mt-3">
+            {% csrf_token %}
+            
+            <table style="background-color: #005a87;" class="table table-bordered">
+                <tbody style="background-color: #005a87;">
+                    <tr>
+                        <th scope="row">
+                            <label for="profileimage" class="form-label">PROFILE PICTURE</label>
+                        </th>
+                        <td>
+                            <input 
+                                type="file" 
+                                class="form-control" 
+                                id="profileimage" 
+                                name="profileimage" 
+                                required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="firstname" class="form-label">FIRST NAME</label>
+                        </th>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="form-control " 
+                                id="firstname" 
+                                value="{{ profile.firstname }}" 
+                                name="firstname" 
+                                placeholder="First Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="lastname" class="form-label">LAST NAME</label>
+                        </th>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="lastname" 
+                                value="{{ profile.lastname }}" 
+                                name="lastname" 
+                                placeholder="Last Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="state" class="form-label">STATE</label>
+                        </th>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="state" 
+                                value="{{ profile.state }}" 
+                                name="state" 
+                                placeholder="State" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="phonenumber" class="form-label">PHONE NUMBER</label>
+                        </th>
+                        <td>
+                            <input 
+                                type="text" 
+                                class="form-control " 
+                                id="phonenumber" 
+                                value="{{ profile.phonenumber }}" 
+                                name="phonenumber" 
+                                placeholder="Phone Number" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Button inside the same div -->
+            <div class="text-center mt-3">
+                <button style="font-weight: bold; color: white;background-color: #005a87;" type="submit" class="btn w-50">UPDATE</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

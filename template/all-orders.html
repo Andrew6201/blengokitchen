@@ -1,0 +1,95 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <style>
+         body{
+        background-color: #dd9860 ;
+    }
+        .order-section {
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .order-header {
+            text-align: center;
+            font-size: 1.5em;
+            color: #005a87;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .order-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .order-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .order-card h4 {
+            font-size: 1.2em;
+            color: #005a87;
+            margin-bottom: 10px;
+        }
+
+        .order-card p {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .order-card strong {
+            display: block;
+            font-size: 1em;
+            color: #005a87;
+            margin-bottom: 10px;
+        }
+
+        .order-card .created-at {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 10px;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .order-card hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
+    </style>
+
+    <div class="order-section">
+        <div class="order-header">ORDERS RECEIVED</div>
+        <div class="order-cards">
+            {% for x in order %}
+            
+            <div class="order-card">
+                <a href="{% url 'delete-order' x.id %}" class="btn btn-danger">DELETE ORDER</a>
+                <h4>{{ x.foodname }}</h4>
+                <p><strong>Name:</strong> {{ x.name }}</p>
+                <p><strong>State:</strong> {{ x.state }}</p>
+                <p><strong>Address:</strong> {{ x.address }}</p>
+                <p><strong>Phone Number:</strong> {{ x.phonenumber }}</p>
+                <hr>
+                <p class="created-at">Ordered on: {{ x.created_at }}</p>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

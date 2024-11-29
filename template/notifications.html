@@ -1,0 +1,95 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #dd9860 ;;
+    }
+
+    .notification-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .notification-card {
+        background-color: #005a87;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .notification-card:hover {
+        transform: scale(1.05);
+    }
+
+    .notification-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .notification-message {
+        font-size: 0.9em;
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .view-details-btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+
+    .view-details-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a> <!-- Back button -->
+<div class="container">
+    <h1 style="font-weight: bold;" class="text-center">Notifications</h1>
+    <div class="notification-container">
+        {% if all %}
+            {% for x in all %}
+                <div class="notification-card">
+                    {% if x.contribution %}
+                        <div style="color: white;" class="notification-title">
+                            {{ x.contribution.months|upper }}
+                            <hr>
+                            <br>
+                        </div>
+                        {% if x.contribution.confirmation %}
+                            <div class="notification-message">
+                              Dear {{x.contribution.user|upper}}  Your payment for the food contribution in {{ x.contribution.months }} has been confirmed.
+                            </div>
+                        {% else %}
+                            <div class="notification-message">
+                                Dear {{ x.contribution.user|upper }} Your payment for the food contribution in {{ x.contribution.months }} has been confirmed.
+                            </div>
+                        {% endif %}
+                       
+                    {% else %}
+                        <div class="notification-message">
+                            No contribution data available.
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No notifications yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

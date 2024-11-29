@@ -1,0 +1,210 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #dd9860 ;; /* Light background for better readability */
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+ 
+
+
+    .alert {
+        font-size: 1em;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .alert-warning {
+        background-color: #ffc107;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .order-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #005a87;;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .order-container h1 {
+        text-align: center;
+        font-size: 2em;
+        color: #dd9860;
+        margin-bottom: 20px;
+    }
+
+    .order-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-container label {
+        font-size: 1em;
+        margin-bottom: 5px;
+        color: white
+    }
+
+    .order-container input {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .order-container input:focus {
+        border-color: #dd9860;
+        outline: none;
+        box-shadow: 0 0 5px rgba(221, 152, 96, 0.5);
+    }
+
+
+    .order-container input[type="submit"] {
+        background-color: #077fbb;
+        color: #fff;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .order-container input[type="submit"]:hover {
+        background-color:#12425a;
+    }
+
+    .footer-note {
+        text-align: center;
+        font-size: 0.9em;
+        color: #666;
+        margin-top: 20px;
+    }
+</style>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a> 
+<div class="order-container">
+    
+    
+    <p style="background-color: #077fbb;color: white;" class="">*Delivery fees apply.</p>
+
+    <h1 style=" color: white; font-size: 19px;">Place Your Order</h1>
+
+    <form method="POST" action="{% url 'order' %}">
+        {% csrf_token %}
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" required placeholder="Enter your full name"/>
+
+        <label for="state">State</label>
+        <input id="state" type="text" name="state" required placeholder="Enter your state"/>
+
+        <label for="address">House Address</label>
+        <input id="address" type="text" name="address" required placeholder="Enter your house address"/>
+
+        <label for="phonenumber">Phone Number</label>
+        <input id="phonenumber" type="number" name="phonenumber" required placeholder="Enter your phone number"/>
+
+        <label for="foodname">Food/Product Ordered</label>
+        <input id="foodname" type="text" name="foodname" required placeholder="e.g., Jollof Rice, Honey"/>
+
+        <input type="submit" value="Place Order"/>
+    </form>
+</div>
+
+<div class="container">
+    <style>
+        .order-section {
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .order-header {
+            text-align: center;
+            font-size: 1.5em;
+            color: #005a87;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .order-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .order-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .order-card h4 {
+            font-size: 1.2em;
+            color: #005a87;
+            margin-bottom: 10px;
+        }
+
+        .order-card p {
+            font-size: 0.9em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .order-card strong {
+            display: block;
+            font-size: 1em;
+            color: #005a87;
+            margin-bottom: 10px;
+        }
+
+        .order-card .created-at {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 10px;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .order-card hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
+    </style>
+
+    <div class="order-section">
+        <div class="order-header">ORDER MADE</div>
+        <div class="order-cards">
+            {% for x in order %}
+            {% if x.user == request.user %}
+            <div class="order-card">
+                <h4>{{ x.foodname }}</h4>
+                <p><strong>Name:</strong> {{ x.name }}</p>
+                <p><strong>State:</strong> {{ x.state }}</p>
+                <p><strong>Address:</strong> {{ x.address }}</p>
+                <p><strong>Phone Number:</strong> {{ x.phonenumber }}</p>
+                <hr>
+                <p class="created-at">Ordered on: {{ x.created_at }}</p>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

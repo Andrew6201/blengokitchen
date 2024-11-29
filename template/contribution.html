@@ -4,50 +4,77 @@
 
 <style>
     span {
-        color: blue;
+        color: #2688f1;;
+    }
+    body{
+        background-color: #dd9860 ;
     }
 </style>
-<a href="{% url 'home' %}" class="btn btn-primary">Home</a>
-<div style="width: 60%; margin: 0 auto; background-color: #ece6e6; padding: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 15px; height: 10%;">
-    <h1 style="color: #333; text-align: center; font-weight: bolder; font-size: 18px;"><span>{{ request.user|capfirst }}  </span>Monthly Contribution for <span>{{ month.monthname|capfirst }}</span></h1>
+<a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;;color: white;" href="{% url 'home' %}" class="btn"><i class="fa fa-home" aria-hidden="true"></i>
+    Home</a>
+
+    <a style="margin-left: 5px;margin-top: 5px;background-color: #005a87;;color: white;" class="btn" href="{% url 'months' %}"><i class="fa-solid fa-backward"></i> BACK</a>
+
+    
+
+<div style="width: 90%; margin: 0 auto; background-color: #005a87;; padding: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 15px; height: 10%;">
+    <h1 style="color: white; text-align: center; font-weight: bolder; font-size: 18px;"><span>{{ request.user|upper }}  </span>MONTHLY CONTRIBUTION FOR <span>{{ month.monthname|upper }}</span></h1>
 
     <div style="margin-top: 20px; text-align: center;">
         {% if month.contribution and request.user == month.contribution.user %}
             {% if month.contribution.contributionimage %}
                 {% if confirmed.confirm %}
                 <div class="alert alert-success" role="alert">
-                    Payment confirmed
+                    PAYMENT CONFIRMED SUCCESSFULLY <i class="fa fa-info-circle" aria-hidden="true"></i>
+
                 </div>
                 
                 {% else %}
                     <img  style="width: 30%; border-radius: 8px; margin-bottom: 10px;" src="{{ month.contribution.contributionimage.url }}" alt="Contribution Image" />
-                    <p style="color: rgb(36, 43, 36);">Uploaded on {{ month.contribution.created_at.date }} </p>
-                    <p style="color: rgb(10, 19, 10);">By {{ month.contribution.created_at.time }} </p>
-                    <p style="color: rgb(10, 19, 10);">( {{ month.contribution.created_at.date|timesince }} )</p>
+                    <p style="color: white;font-size: 16px;">UPLOADED ON {{ month.contribution.created_at.date|upper }} </p>
+                    
+                   
                     <div class="alert alert-success" role="alert">
-                        Upload Successful
+                        SUCCESSFULLY UPLOADED <i class="fa fa-info-circle" aria-hidden="true"></i>
                     </div>
-                    <p style="color: rgb(236, 162, 24)">Awaiting confirmation...</p>
+                    <p style="color: rgb(236, 162, 24);font-size: 17px;">AWAITING CONFIRMATION...<i class="fa fa-info-circle" aria-hidden="true"></i></p>
                   
                 {% endif %}
             {% else %}
-                <p style="color: #555;">Upload your receipt</p>
+                <p style="color: #555;">UPLOAD EVIDENCE OF PAYMENT</p>
                 <div style="margin-top: 20px;">
                     <form method="POST" action="{% url 'contribution' month.id %}" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px;">
                         {% csrf_token %}
                         <input type="file" name="contributionimage" style="margin-bottom: 20px;"/>
-                        <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;"/>
+                        <input type="submit" value="UPLOAD IMAGE" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;"/>
+                        
                     </form>
                 </div>
             {% endif %}
         {% else %}
-            <p style="color: #555;">Upload your receipt</p>
+            <p style="color: white;">UPLOAD EVIDENCE OF PAYMENT</p>
             <div style="margin-top: 20px;">
                 <form method="POST" action="{% url 'contribution' month.id %}" enctype="multipart/form-data" style="border-top: 1px solid #ddd; padding-top: 20px;">
                     {% csrf_token %}
                     <input type="file" name="contributionimage" style="margin-bottom: 20px;" required/>
+                    <label for="month" style="display: block; margin-bottom: 10px; color: white; font-weight: bold;">SELECT MONTH:</label>
+                    <select name="month" id="month" style="margin-bottom: 20px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%;" required>
+                        <option value="" disabled selected>-- SELECT MONTH --</option>
+                        <option value="January">JANUARY</option>
+                        <option value="February">FEBRUARY</option>
+                        <option value="March">MARCH</option>
+                        <option value="April">APRIL</option>
+                        <option value="May">MAY</option>
+                        <option value="June">JUNE</option>
+                        <option value="July">JULY</option>
+                        <option value="August">AUGUST</option>
+                        <option value="September">SEPTEMBER</option>
+                        <option value="October">OCTOBER</option>
+                        <option value="November">NOVEMBER</option>
+                        <option value="December">DECEMBER</option>
+                    </select>
                     
-                    <input type="submit" value="Upload Image" style="background-color: #0044cc; color: #f0eded; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;"/>
+                    <input type="submit" value="UPLOAD RECEIPT" style="background-color:  white;;font-size: 17px; color: #005a87;; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;font-weight: bold;"/>
                 </form>
             </div>
         {% endif %}
